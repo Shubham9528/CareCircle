@@ -1,7 +1,8 @@
-import React from 'react';
-import { ArrowLeftIcon, Settings2Icon, PlusCircleIcon, LogOutIcon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowLeftIcon, Settings2Icon, PlusCircleIcon, LogOutIcon, EllipsisVertical } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../components/ui/dropdown-menu';
 
 interface CareProvider {
   type: string;
@@ -11,14 +12,25 @@ interface CareProvider {
 
 export const Dashboard = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState<string>('');
+  
+  useEffect(() => {
+    const getUserProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.user_metadata?.full_name) {
+        setUserName(user.user_metadata.full_name);
+      }
+    };
+    getUserProfile();
+  }, []);
   
   const providers: CareProvider[] = [
-    { type: 'Dentist', name: 'Dr. Sarah Smith', icon: '/frame-1.svg' },
-    { type: 'Chiropractor', name: 'Dr. Robert Lee', icon: '/frame-2.svg' },
-    { type: 'Physician', name: 'Dr. Lisa Johnson', icon: '/frame-3.svg' },
-    { type: 'Physiotherapist', name: 'John Martinez', icon: '/frame-2.svg' },
-    { type: 'Massage Therapist', name: 'Emma Wilson', icon: '/frame-4.svg' },
-    { type: 'Podiatrist', name: 'Dr. Michael Chang', icon: '/frame-3.svg' },
+    { type: 'Dentist', name: 'Dr. Sarah Smith', icon: '/dentist.svg' },
+    { type: 'Chiropractor', name: 'Dr. Robert Lee', icon: '/chiropractor.svg' },
+    { type: 'Physician', name: 'Dr. Lisa Johnson', icon: '/physician.svg' },
+    { type: 'Physiotherapist', name: 'John Martinez', icon: '/physiotherapist.svg' },
+    { type: 'Massage Therapist', name: 'Emma Wilson', icon: '/massagetherapist.svg' },
+    { type: 'Podiatrist', name: 'Dr. Michael Chang', icon: '/podiatrist.svg' },
   ];
 
   const handleSignOut = async () => {
@@ -40,14 +52,23 @@ export const Dashboard = () => {
           <h1 className="text-xl font-semibold">Your Care Circle</h1>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-          >
-            <LogOutIcon className="w-5 h-5" />
-            <span>Sign Out</span>
-          </button>
-          <Settings2Icon className="w-6 h-6 text-gray-600" />
+          {userName && (
+            <p className="text-lg font-medium text-gray-700">Welcome, {userName}</p>
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="focus:outline-none">
+              <EllipsisVertical className="w-6 h-6 text-gray-600 hover:text-gray-900" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={handleSignOut}
+              >
+                <LogOutIcon className="w-4 h-4" />
+                <span>Sign Out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 

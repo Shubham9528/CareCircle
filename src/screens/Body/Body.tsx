@@ -79,8 +79,8 @@ export const Body = (): JSX.Element => {
       <div className="relative h-full max-w-6xl mx-auto flex flex-col items-center px-8">
         {/* Top navigation icons */}
         <div className="w-full flex justify-between items-center pt-8">
-          <ArrowLeftIcon className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
-          <BellIcon className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
+          <img src="/public/langing-pg-1.svg" alt="Back" className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
+          <img src="/public/langing-pg-2.svg" alt="Back" className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
         </div>
 
         {/* Logo and branding */}
@@ -127,8 +127,9 @@ export const Body = (): JSX.Element => {
 
         {/* Bottom navigation icons */}
         <div className="w-full flex justify-between items-center absolute bottom-8">
-          <MenuIcon className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
-          <StarIcon className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
+           <img src="/public/langing-pg-3.svg" alt="Back" className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
+          <img src="/public/langing-pg-4.svg" alt="Back" className="w-8 h-8 text-gray-700 cursor-pointer hover:text-blue-600 transition-colors" />
+          
         </div>
 
         {/* Auth Modal */}
